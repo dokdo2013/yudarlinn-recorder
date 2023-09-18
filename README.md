@@ -1,73 +1,25 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Yudarlinn Recorder
+유달린 방송 자동녹화 시스템 (open-stream-recorder 개발을 위한 playground 겸 테스트)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+이 레포는 코드 퀄리티 신경쓰지 않고 빠르게 기술검증하고 구현하는 용도로 편하게 활용
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 구성 계획
+- 일단 NestJS 기반으로 작성
+- Twitch EventSub을 통해 생방송 알림 수신
+- 일단 하나의 코드에서 모든 작업 수행
+- 중간에 Redis를 두고 BullMQ로 큐 처리
+- DB는 Supabase에서 제공하는 PostgreSQL를 이용
+- 저장은 R2에서
 
-## Description
+## 대충 흐름
+1. Twitch EventSub으로 알림이 들어온다
+2. 들어온 알림을 `stream` 테이블에 기록한다 (스트림이 시작됨)
+3. m3u8 주소를 불러와서 역시 `stream` 테이블에 함께 기록한다
+4. m3u8 주소를 파싱해서 하위 job을 실행시키는 메인 Job을 실행한다
+5. 메인 Job에서 ts 파일 파싱을 시작한다.
+6. 추출된 ts 파일은 `segment` 테이블에 기록하고, 파일을 다운받아 r2에 저장하는 하위 Job을 실행시킨다
+7. 하위 Job에서는 ts 파일을 저장하고, r2에 업로드하고, db에 완료된 링크를 기록까지 한다
+8. Job이 실패하면 다시 실행되니까 최소 n회 정상 동작 보장은 될 것이다
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+## 보여주는 쪽
+프론트와 백엔드에서는 `stream` 테이블과 `segment` 테이블을 이용해서 ts segment file을 이용한 스트리밍을 보여준다.
