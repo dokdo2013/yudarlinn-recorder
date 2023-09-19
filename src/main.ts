@@ -7,6 +7,9 @@ import * as Sentry from '@sentry/node';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // cors
+  app.enableCors();
+
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     sampleRate: 1.0,
