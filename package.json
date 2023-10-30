@@ -44,7 +44,7 @@
     "node-postgres": "^0.6.2",
     "pg": "^8.11.3",
     "reflect-metadata": "0.1.13",
-    "rimraf": "4.4.1",
+    "rimraf": "5.0.5",
     "rxjs": "7.8.1",
     "sequelize": "6.33.0",
     "sequelize-typescript": "2.1.5",
