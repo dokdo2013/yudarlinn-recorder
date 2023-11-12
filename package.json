@@ -46,7 +46,7 @@
     "reflect-metadata": "0.1.13",
     "rimraf": "4.4.1",
     "rxjs": "7.8.1",
-    "sequelize": "6.34.0",
+    "sequelize": "6.35.0",
     "sequelize-typescript": "2.1.5",
     "twitch-m3u8": "^1.1.5"
   },
