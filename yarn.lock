@@ -1406,10 +1406,10 @@
   resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.0.1.tgz#625e93a0edb2c830e3c52ce2d67b9d53377c6a66"
   integrity sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==
 
-"@nestjs-modules/ioredis@1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@nestjs-modules/ioredis/-/ioredis-1.2.4.tgz#45de384168abd2ba0224d34876c327d61d3d99ba"
-  integrity sha512-E7rG6Pkzd+V4lV/eY9GY9Jjt4RXYT3Jii5kpoXtEf7cgGfvY9hLpLgIGvItFPhFoUStWk3TunDWv9V0R0iuZmw==
+"@nestjs-modules/ioredis@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-modules/ioredis/-/ioredis-2.0.1.tgz#16370d8380abcb5a09b3309e12c12cab6bca3623"
+  integrity sha512-70bXmS0/gzTa/AURSFOJUHOkkf1fg0cnY8RBiWuCs6lSWsiy6xmLBzehuv1EimYMRqHW2uu4LQzXFl9d2JfuRg==
   optionalDependencies:
     "@nestjs/terminus" "10.2.0"
 
