@@ -34,7 +34,7 @@
     "@sentry/node": "7.91.0",
     "@sentry/tracing": "7.91.0",
     "@types/sequelize": "4.28.19",
-    "axios": "1.6.3",
+    "axios": "1.6.4",
     "fluent-ffmpeg": "^2.1.2",
     "ioredis": "5.3.2",
     "m3u8-parser": "^7.1.0",
