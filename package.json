@@ -23,7 +23,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.414.0",
     "@aws-sdk/lib-storage": "^3.414.0",
-    "@nestjs-modules/ioredis": "1.2.4",
+    "@nestjs-modules/ioredis": "2.0.2",
     "@nestjs/common": "9.4.3",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "9.4.3",
