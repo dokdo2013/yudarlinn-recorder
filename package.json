@@ -43,7 +43,7 @@
     "nest-raven": "9.2.0",
     "node-postgres": "^0.6.2",
     "pg": "^8.11.3",
-    "reflect-metadata": "0.2.1",
+    "reflect-metadata": "0.2.2",
     "rimraf": "4.4.1",
     "rxjs": "7.8.1",
     "sequelize": "6.37.1",
